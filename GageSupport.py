@@ -28,8 +28,8 @@ if is_64_bits:
     if sys.version_info > (3, 0):
         import PyGage3_64 as PyGage
 
-        print(f'Python version Info: {sys.version_info}')
-        print(f'Loaded.... PyGage3_64 as PyGage ')
+        # print(f'Python version Info: {sys.version_info}')
+        # print(f'Loaded.... PyGage3_64 as PyGage ')
     else:
         import PyGage2_64 as PyGage
 else:
@@ -538,28 +538,34 @@ def Initialize():
 
 def main():
     handle = Initialize()
+    print(f'\nHandel: {handle}\n')
     if handle < 0:
         # get error string
         print("Error: ", handle)
         raise SystemExit
-
+    print("**** Load Acquisition Configuration ****\n")
     acq, sts = LoadAcquisitionConfiguration(handle, "Acquire.ini")
-    for i, j in acq[0].items():
+    # print(f'acq:{acq}, sts:{sts}')
+    for i, j in acq.items():
         print(i, j)
 
     print()
+    print("**** Load Channel Configuration ****\n")
     chan, sts = LoadChannelConfiguration(handle, 1, "Acquire.ini")
     if isinstance(chan, dict) and chan:
         for i, j in chan.items():
             print(i, j)
         print()
         print()
+
+    print("****Load Channel Configuration2 ****\n")
     chan, sts = LoadChannelConfiguration(handle, 2, "Acquire.ini")
     if isinstance(chan, dict) and chan:
         for i, j in chan.items():
             print(i, j)
         print()
 
+    print("**** Load Trigger Configuration ****\n")
     trig, sts = LoadTriggerConfiguration(handle, 1, "Acquire.ini")
     if isinstance(trig, dict) and trig:
         for i, j in trig.items():
